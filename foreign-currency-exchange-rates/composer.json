@@ -15,7 +15,10 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0"
+        "phpunit/phpunit": "^7.0",
+        "phpmd/phpmd": "2.4.*",
+        "sebastian/phpcpd": "*",
+        "suitmedia/php-code-standards": "dev-master"
     },
     "autoload": {
         "classmap": [
@@ -39,6 +42,12 @@
     },
     "scripts": {
         "test": "php vendor/bin/phpunit -c phpunit.xml",
+        "check-quality": [
+            "! find app -type f -name \"*.php\" -exec php -l {} \\; |  grep -v 'No syntax errors'",
+            "vendor/bin/phpcs --colors --standard=vendor/suitmedia/php-code-standards/Suitmedia/ app/",
+            "vendor/bin/phpmd app/ text controversial,naming,unusedcode --exclude app/Validator/",
+            "vendor/bin/phpcpd -vn app/"
+        ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
