@@ -1,8 +1,8 @@
 <?php
 
-namespace app\Repositories;
+namespace App\Repositories;
 
-use app\Models\Currency;
+use App\Models\Currency;
 
 class CurrencyRepository
 {
